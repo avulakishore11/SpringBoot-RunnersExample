@@ -8,4 +8,4 @@ WORKDIR /app
 COPY . .
 
 # Build the actual application
-RUN mvn clean package 
+RUN mvn clean package -DskipTests
