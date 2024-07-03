@@ -9,14 +9,17 @@ trigger:
 pool:
   name: 'webgaot-pool'
 
-steps:
-- task: Maven@3
-  displayName: 'Bulding springboot-app'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: 'Default'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+stages:
+  - stage: 
+    jobs:
+    - job: 
+      steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'webgoat-dcr'
+          repository: 'Spring-Boot'
+          command: 'build'
+          Dockerfile: '**/dockerfile'
+          addPipelineData: false
+          addBaseImageData: false
+  
