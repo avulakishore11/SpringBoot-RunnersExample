@@ -11,4 +11,4 @@ COPY pom.xml /app
 COPY . /app
 
 # Build the actual application
-RUN mvn clean package -DskipTests
+RUN mvn package 
