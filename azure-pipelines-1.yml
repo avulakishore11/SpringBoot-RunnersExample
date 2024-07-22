@@ -1,0 +1,27 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+pool:
+ name: 'k8s-pool'
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.Buildid)'
+
+stages:
+- stage: 
+  jobs:
+  - job: Build
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/dockerfile'
+        tags: |
+          $(tag)
